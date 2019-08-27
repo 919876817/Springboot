@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="http://how2j.cn/study/jquery.min.js"></script>
+
+<input class="form-control" id="usercode" name="usercode" type="text"/>
+<button type="button" onclick="Submit()">查询</button>
+
+<table style="width:100%;height:190px">
+         <tr>
+             <td style="width:100%">
+                 <table border="2px">
+                     <thead>
+                 <tr class="cen">
+                     <th>工号</th>
+                     <th>姓名</th>
+                     <th>部门</th>
+
+                  </tr>
+                 </thead>
+                 <tbody id="tbodydata">
+                  <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+
+                 </tbody>
+              </table>
+            </td>
+         </tr>
+
+     </table>
+
+<script type="text/javascript">
+    function Submit() {
+        var usercode = $("#usercode").val();
+        // Ajax提交数据
+        $.ajax({
+            url: "/client",    // 提交到controller的url路径
+            type: "post",    // 提交方式
+            data: {"usercode": usercode}, // data为String类型，必须为 Key/Value 格式。
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                var str="";
+                str+="<tr>"+
+                    "<td>"+result.usercode+"</td>"+
+                    "<td>"+result.username+"</td>"+
+                    "<td>"+result.department+"</td>"+
+                    "</tr>";
+                document.getElementById("tbodydata").innerHTML=str;
+            }
+
+            })
+    }
+</script>
+
+</body>
+
+</html>
