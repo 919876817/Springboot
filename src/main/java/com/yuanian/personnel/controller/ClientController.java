@@ -33,7 +33,7 @@ import java.util.Map;
 public class ClientController {
     @RequestMapping("/client")
     @ResponseBody
-    public Map<String, String> HttpPostData(String usercode) throws IOException {
+    public User HttpPostData(String usercode) throws IOException {
 //        try {
             HttpClient httpclient = new DefaultHttpClient();
             String uri = "http://localhost:8080/user/findUserById";
@@ -52,16 +52,17 @@ public class ClientController {
             System.out.println(code+"code");
 //            if (code == 200) {
                 String rev = EntityUtils.toString(response.getEntity());//返回json格式： {"id": "","name": ""}
-                obj= JSONObject.fromObject(rev);
+                   System.out.println(rev);
+                 obj= JSONObject.fromObject(rev);
 
                 User user = (User)JSONObject.toBean(obj,User.class);
-                Map<String,String> map=new HashMap<>();
-                map.put("usercode",user.getUsercode());
-                map.put("username",user.getUsername());
-                map.put("department",user.getDepartment());
+//                Map<String,String> map=new HashMap<>();
+//                map.put("usercode",user.getUsercode());
+//                map.put("username",user.getUsername());
+//                map.put("department",user.getDepartment());
 
                 System.out.println("返回数据==="+user.getDepartment());
-                return map;
+                return user;
 //                List<User> us = new ArrayList<>();
 //                us.add(user);
 //                model.addAttribute("client",us);

@@ -28,9 +28,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-
                     </tr>
-
                  </tbody>
               </table>
             </td>
@@ -39,6 +37,25 @@
      </table>
 
 <script type="text/javascript">
+    $(function() {
+        // Ajax提交数据
+        $.ajax({
+            url: "user/findUserAll",    // 提交到controller的url路径
+            type: "post",    // 提交方式
+            dataType: "json",
+            success: function (result) {
+                var str="";
+                for (i=0;i<result.length;i++) {
+                str+="<tr>"+
+                    "<td>"+result[i].usercode+"</td>"+
+                    "<td>"+result[i].username+"</td>"+
+                    "<td>"+result[i].department+"</td>"+
+                    "</tr>";
+                document.getElementById("tbodydata").innerHTML=str;
+            }}
+
+        })
+    })
     function Submit() {
         var usercode = $("#usercode").val();
         // Ajax提交数据
@@ -47,13 +64,12 @@
             type: "post",    // 提交方式
             data: {"usercode": usercode}, // data为String类型，必须为 Key/Value 格式。
             dataType: "json",
-            success: function (result) {
-                console.log(result);
+            success: function (map) {
                 var str="";
                 str+="<tr>"+
-                    "<td>"+result.usercode+"</td>"+
-                    "<td>"+result.username+"</td>"+
-                    "<td>"+result.department+"</td>"+
+                    "<td>"+map.usercode+"</td>"+
+                    "<td>"+map.username+"</td>"+
+                    "<td>"+map.department+"</td>"+
                     "</tr>";
                 document.getElementById("tbodydata").innerHTML=str;
             }

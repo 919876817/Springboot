@@ -1,7 +1,9 @@
 package com.yuanian.personnel.service;
 
 
+import com.yuanian.personnel.pojo.Department;
 import com.yuanian.personnel.pojo.User;
+import com.yuanian.personnel.pojo.Username;
 
 import java.util.List;
 
@@ -17,6 +19,9 @@ public interface UserService {
     //查询所有用户
     List<User> selectUserAll();
 
+    void insertUsername(Username record);
+    void insertDepartment(Department record);
+    User selectByUsercode(String usercode);
 
 
 

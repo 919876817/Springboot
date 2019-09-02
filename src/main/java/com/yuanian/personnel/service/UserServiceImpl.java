@@ -1,7 +1,9 @@
 package com.yuanian.personnel.service;
 
 import com.yuanian.personnel.mapper.UserMapper;
+import com.yuanian.personnel.pojo.Department;
 import com.yuanian.personnel.pojo.User;
+import com.yuanian.personnel.pojo.Username;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,4 +39,21 @@ public class UserServiceImpl implements UserService{
     public List<User> selectUserAll() {
         return this.userMapper.selectAll();
     }
+
+    @Override
+    public void insertUsername(Username username) {
+        this.userMapper.insertUsername(username);
+    }
+
+    @Override
+    public void insertDepartment(Department department) {
+       this.userMapper.insertDepartment(department);
+    }
+
+    @Override
+    public User selectByUsercode(String usercode) {
+        return this.userMapper.selectByUsercode(usercode);
+    }
+
+
 }

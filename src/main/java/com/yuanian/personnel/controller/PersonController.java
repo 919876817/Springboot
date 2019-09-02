@@ -5,14 +5,11 @@ import com.yuanian.personnel.service.UserService;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 @CrossOrigin
 @RestController
@@ -29,12 +26,9 @@ public class PersonController {
 //        }
     //查询所有User
 //        @RequestMapping("/findUserAll")
-    @GetMapping("/findUserAll")
-    public  List<User> findUserAll() {
-//            List<User> list = this.userService.selectUserAll();
-//            model.addAttribute("list", list);
-//            return "index";
-        return this.userService.selectUserAll();
+    @RequestMapping("/findUserAll")
+    public  @ResponseBody List<User> findUserAll(HttpServletRequest request) throws IOException {
+            return this.userService.selectUserAll();
 
     }
     //根据id查询User
@@ -56,6 +50,10 @@ public class PersonController {
         System.out.println(obj.get("name"));
         User user= userService.selectUser(obj.get("name").toString());
         return user;
+    }
+ //添加用户
+    public void  addUser(User user){
+        this.userService.addUser(user);
     }
 
 }

@@ -10,11 +10,18 @@
     usercode, username, department
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from user
     where usercode = #{usercode,jdbcType=VARCHAR}
   </select>
+  <select id="selectByUsercode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select u_name.usercode,u_name.username,u_department.department
+    FROM u_name
+    LEFT JOIN u_department ON u_name.usercode=u_department.usercode
+    where u_name.usercode = #{usercode,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select  usercode,username,department from user
   </select>
@@ -53,6 +60,45 @@
       </if>
     </trim>
   </insert>
+  <insert id="insertUsername" parameterType="com.yuanian.personnel.pojo.Username" >
+    insert into u_name
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usercode != null" >
+        usercode,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usercode != null" >
+        #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertDepartment" parameterType="com.yuanian.personnel.pojo.Department" >
+    insert into u_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usercode != null" >
+        usercode,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usercode != null" >
+        #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.yuanian.personnel.pojo.User" >
     update user
     <set >
